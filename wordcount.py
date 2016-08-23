@@ -38,7 +38,8 @@ print_words() and print_top().
 """
 
 import sys
-import operator
+from operator import itemgetter
+from collections import Counter
 
 
 # +++your code here+++
@@ -52,23 +53,18 @@ def helper(filename):
     str = arquivo.read()
     arquivo.close()
     words = [x.lower() for x in str.split()]
-    word_count = {}
-    for word in words:
-        if word in word_count:
-            word_count[word] += 1
-        else:
-            word_count[word] = 1
+    word_count = Counter(words)
     return word_count
 
 
 def print_words(filename):
-    for k, v in sorted(helper(filename).items(), key=operator.itemgetter(0)):
+    for k, v in sorted(helper(filename).items(), key=itemgetter(0)):
         print('%s : %d' % (k, v))
 
 
 def print_top(filename):
     i = 1
-    for k, v in sorted(helper(filename).items(), key=operator.itemgetter(1), reverse=True):
+    for k, v in sorted(helper(filename).items(), key=itemgetter(1), reverse=True):
         if i > 20:
             break
         print('%s : %d' % (k, v))
