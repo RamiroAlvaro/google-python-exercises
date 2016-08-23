@@ -50,10 +50,8 @@ from collections import Counter
 
 def helper(filename):
     arquivo = open(filename, 'r')
-    str = arquivo.read()
+    word_count = Counter(x.lower() for x in arquivo.read().split())
     arquivo.close()
-    words = [x.lower() for x in str.split()]
-    word_count = Counter(words)
     return word_count
 
 
