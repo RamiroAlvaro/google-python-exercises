@@ -49,9 +49,8 @@ from collections import Counter
 # Then print_words() and print_top() can just call the utility function.
 
 def helper(filename):
-    arquivo = open(filename, 'r')
-    word_count = Counter(x.lower() for x in arquivo.read().split())
-    arquivo.close()
+    with open(filename, 'r') as f:
+        word_count = Counter(x.lower() for x in f.read().split())
     return word_count
 
 
@@ -61,12 +60,8 @@ def print_words(filename):
 
 
 def print_top(filename):
-    i = 1
-    for k, v in sorted(helper(filename).items(), key=itemgetter(1), reverse=True):
-        if i > 20:
-            break
+    for k, v in sorted(helper(filename).items(), key=itemgetter(1), reverse=True)[0:20]:
         print('%s : %d' % (k, v))
-        i += 1
 
 
 ###
