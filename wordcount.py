@@ -51,8 +51,7 @@ def helper(filename):
     arquivo = open(filename, 'r')
     str = arquivo.read()
     arquivo.close()
-    words = str.split()
-    words = [x.lower() for x in words]
+    words = [x.lower() for x in str.split()]
     word_count = {}
     for word in words:
         if word in word_count:
