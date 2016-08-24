@@ -50,8 +50,7 @@ from collections import Counter
 
 def helper(filename):
     with open(filename, 'r') as f:
-        word_count = Counter(x.lower() for x in f.read().split())
-    return word_count
+        return Counter(x.lower() for x in f.read().split())
 
 
 def print_words(filename):
