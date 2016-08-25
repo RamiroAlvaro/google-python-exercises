@@ -49,7 +49,7 @@ from collections import Counter
 # Then print_words() and print_top() can just call the utility function.
 
 def helper(filename):
-    with open(filename, 'r') as f:
+    with open(filename, 'rt') as f:
         return Counter(x.lower() for x in f.read().split())
 
 
