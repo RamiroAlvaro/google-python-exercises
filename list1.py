@@ -16,6 +16,8 @@
 # are some additional functions to try in list2.py.
 
 from operator import itemgetter
+from itertools import compress
+
 
 # A. match_ends
 # Given a list of strings, return the count of the number of
@@ -36,14 +38,8 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-    list_a = []
-    list_x = []
-    for word in words:
-        if word[0] == 'x':
-            list_x.append(word)
-        else:
-            list_a.append(word)
-    return sorted(list_x) + sorted(list_a)
+    return sorted(list(compress(words, (word[0] == 'x' for word in words)))) + sorted(
+        list(compress(words, (word[0] != 'x' for word in words))))
 
 
 # C. sort_last
