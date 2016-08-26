@@ -46,8 +46,8 @@ def extract_names(filename):
     rank_name = []
     entradas = soup.find_all('tr', {'align': 'right'})
     for entrada in entradas:
-        rank = [child.get_text() for child in entrada.children if child != '\n']
-        rank_name.append(rank[1] + ' ' + rank[0])
+        rank, name, _, _ = entrada.children
+        rank_name.append(name.get_text() + ' ' + rank.get_text())
     return year + sorted(rank_name)
 
 
