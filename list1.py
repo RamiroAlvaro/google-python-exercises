@@ -38,8 +38,8 @@ def match_ends(words):
 # Hint: this can be done by making 2 lists and sorting each of them
 # before combining them.
 def front_x(words):
-    return sorted(list(compress(words, (word[0] == 'x' for word in words)))) + sorted(
-        list(compress(words, (word[0] != 'x' for word in words))))
+    return sorted(list(compress(words, (word.startswith('x') for word in words)))) + sorted(
+        list(compress(words, (not word.startswith('x') for word in words))))
 
 
 # C. sort_last
