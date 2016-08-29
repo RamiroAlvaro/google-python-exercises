@@ -26,12 +26,10 @@ import subprocess
 # Write functions and modify main() to call them
 
 def get_special_paths(dir):
-    list_a = list(os.walk(os.path.abspath(dir)))
-    path = list_a[0][0]
-    archives = list_a[0][2]
+    archives = os.listdir(dir)
     for archive in archives:
         if fnmatch(archive, '*__*__*'):
-            print(path + '/' + archive)
+            print(dir + '/' + archive)
 
 
 def copy_to(paths, dir):
@@ -72,7 +70,7 @@ def main():
 
         # +++your code here+++
         # Call your functions
-    get_special_paths(args[0])
+    get_special_paths(os.path.abspath(args[0]))
 
 
 
