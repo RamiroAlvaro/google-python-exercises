@@ -27,13 +27,16 @@ import subprocess
 
 def get_special_paths(dir):
     archives = os.listdir(dir)
+    paths = []
     for archive in archives:
         if fnmatch(archive, '*__*__*'):
-            print(dir + '/' + archive)
+            paths.append(os.path.join(dir, archive))
+    return paths
 
 
 def copy_to(paths, dir):
-    return
+    for path in paths:
+        shutil.copy(path, dir)
 
 
 def zip_to(paths, zippath):
@@ -70,7 +73,14 @@ def main():
 
         # +++your code here+++
         # Call your functions
-    get_special_paths(os.path.abspath(args[0]))
+
+    paths = get_special_paths(os.path.abspath(args[0]))
+    if todir:
+        copy_to(paths, todir)
+    elif tozip:
+        zip_to(paths, tozip)
+    else:
+        print('\n'.join(paths))
 
 
 
