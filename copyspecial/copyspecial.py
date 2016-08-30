@@ -11,7 +11,6 @@
 
 
 import sys
-import re
 import os
 from fnmatch import fnmatch
 import shutil
@@ -40,7 +39,16 @@ def copy_to(paths, dir):
 
 
 def zip_to(paths, zippath):
-    return
+    try:
+        command = 'zip -j ' + zippath + ' ' + ' '.join(paths)
+        print('Command I\'m going to do: ', command)
+        (status, output) = subprocess.getstatusoutput(command)
+        if status:
+            sys.stderr.write(output + '\n')
+            sys.exit(1)
+        print(output)
+    except IOError:
+        print('zip I/O error: No such file or directory')
 
 
 def main():
@@ -81,7 +89,6 @@ def main():
         zip_to(paths, tozip)
     else:
         print('\n'.join(paths))
-
 
 
 if __name__ == "__main__":
