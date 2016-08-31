@@ -45,20 +45,25 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-    if len(a) % 2 == 0:
-        a_front = a[:len(a) // 2]
-        a_back = a[-len(a) // 2:]
-    else:
-        a_front = a[:len(a) // 2 + 1]
-        a_back = a[-len(a) // 2 + 1:]
+    mid = lambda s: (len(s) + 1) // 2
+    front = lambda s: s[:mid(s)]
+    back = lambda s: s[mid(s):]
 
-    if len(b) % 2 == 0:
-        b_front = b[:len(b) // 2]
-        b_back = b[-len(b) // 2:]
-    else:
-        b_front = b[:len(b) // 2 + 1]
-        b_back = b[-len(b) // 2 + 1:]
-    return a_front + b_front + a_back + b_back
+    return ''.join([front(a), front(b), back(a), back(b)])
+    # if len(a) % 2 == 0:
+    #     a_front = a[:len(a) // 2]
+    #     a_back = a[-len(a) // 2:]
+    # else:
+    #     a_front = a[:len(a) // 2 + 1]
+    #     a_back = a[-len(a) // 2 + 1:]
+    #
+    # if len(b) % 2 == 0:
+    #     b_front = b[:len(b) // 2]
+    #     b_back = b[-len(b) // 2:]
+    # else:
+    #     b_front = b[:len(b) // 2 + 1]
+    #     b_back = b[-len(b) // 2 + 1:]
+    # return a_front + b_front + a_back + b_back
 
 
 # Simple provided test() function used in main() to print

@@ -20,6 +20,7 @@ def remove_adjacent(nums):
         elif nums[i] == nums[i - 1]:
             del nums[i]
     return nums
+    # return [n for i, n in enumerate(nums) if n != ]
 
 
 # E. Given two lists sorted in increasing order, create and return a merged
@@ -27,7 +28,8 @@ def remove_adjacent(nums):
 # Ideally, the solution should work in "linear" time, making a single
 # pass of both lists.
 def linear_merge(list1, list2):
-    return sorted(list1 + list2)
+    import heapq
+    return list(heapq.merge(list1, list2))
 
 
 # Note: the solution above is kind of cute, but unforunately list.pop(0)
