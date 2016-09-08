@@ -37,7 +37,7 @@ def nuvem(mapa):
         if aeroportos > cant_aeroportos_act:
             aeroportos = cant_aeroportos_act
         dias_total += 1
-    return [dias_primero_aeroporto, dias_total]
+    return str(dias_primero_aeroporto) + ' ' + str(dias_total)
 
 
 def aeroportos_cant(mapa, linhas, colunas, aeroportos):
@@ -91,4 +91,4 @@ if __name__ == '__main__':
               ['.', '.', '.', 'A', '.', '.', '.', '.'],
               ['.', '.', '.', '.', '.', '.', '.', '.']]
 
-    assert nuvem(mapa) == [2, 4]
+    assert nuvem(mapa) == '2 4'
