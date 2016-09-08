@@ -24,60 +24,66 @@ até que todos os aeroportos ficarem cobertos pelas cinzas."""
 import copy
 
 
-def nubecita(matriz):
-    linhas = len(matriz)
-    colunas = len(matriz[0])
-    aeropuertos = cant_aeropuertos(matriz, linhas, colunas, 0)
+def nuvem(mapa):
+    linhas = len(mapa)
+    colunas = len(mapa[0])
+    aeroportos = aeroportos_cant(mapa, linhas, colunas, 0)
     dias_total = 0
-    dias_primer_aeropuerto = 1
-    matriz_aux = copy.deepcopy(matriz)
-    while aeropuertos > 0:
-        matriz_aux = copy.deepcopy(avance(matriz_aux, linhas, colunas))
-        if aeropuertos == cant_aeropuertos(matriz_aux, linhas, colunas, 0):
-            dias_primer_aeropuerto += 1
-        aeropuertos = cant_aeropuertos(matriz_aux, linhas, colunas, 0)
+    dias_primero_aeroporto = 1
+    while aeroportos > 0:
+        mapa, cant_aeroportos_act = (expande_se(mapa, linhas, colunas, aeroportos))
+        if aeroportos == cant_aeroportos_act:
+            dias_primero_aeroporto += 1
+        if aeroportos > cant_aeroportos_act:
+            aeroportos = cant_aeroportos_act
         dias_total += 1
-    respuesta = [dias_primer_aeropuerto, dias_total]
-    return respuesta
+    return [dias_primero_aeroporto, dias_total]
 
 
-def cant_aeropuertos(matriz, linhas, colunas, aeropuertos):
+def aeroportos_cant(mapa, linhas, colunas, aeroportos):
     for l in range(0, linhas):
         for c in range(0, colunas):
-            if matriz[l][c] == 'A':
-                aeropuertos += 1
-    return aeropuertos
+            if mapa[l][c] == 'A':
+                aeroportos += 1
+    return aeroportos
 
 
-def avance(matriz, linhas, colunas):
-    matriz_aux = copy.deepcopy(matriz)
+def expande_se(mapa, linhas, colunas, aeroportos):
+    mapa_copy = copy.deepcopy(mapa)
     for l in range(0, linhas):
         for c in range(0, colunas):
-
-            if matriz[l][c] == '*':
+            if mapa[l][c] == '*':
                 try:
-                    matriz_aux[l][c + 1] = '*'
+                    if mapa_copy[l][c + 1] == 'A':
+                        aeroportos -= 1
+                    mapa_copy[l][c + 1] = '*'
                 except IndexError:
                     pass
                 try:
                     if c > 0:
-                        matriz_aux[l][c - 1] = '*'
+                        if mapa_copy[l][c - 1] == 'A':
+                            aeroportos -= 1
+                        mapa_copy[l][c - 1] = '*'
                 except IndexError:
                     pass
                 try:
-                    matriz_aux[l + 1][c] = '*'
+                    if mapa_copy[l + 1][c] == 'A':
+                        aeroportos -= 1
+                    mapa_copy[l + 1][c] = '*'
                 except IndexError:
                     pass
                 try:
                     if l > 0:
-                        matriz_aux[l - 1][c] = '*'
+                        if mapa_copy[l - 1][c] == 'A':
+                            aeroportos -= 1
+                        mapa_copy[l - 1][c] = '*'
                 except IndexError:
                     pass
-    return matriz_aux
+    return [mapa_copy, aeroportos]
 
 
 if __name__ == '__main__':
-    matriz = [['.', '.', '*', '.', '.', '.', '*', '*'],
+    mapa = [['.', '.', '*', '.', '.', '.', '*', '*'],
               ['.', '*', '*', '.', '.', '.', '.', '.'],
               ['*', '*', '*', '.', 'A', '.', '.', 'A'],
               ['.', '*', '.', '.', '.', '.', '.', '.'],
@@ -85,4 +91,4 @@ if __name__ == '__main__':
               ['.', '.', '.', 'A', '.', '.', '.', '.'],
               ['.', '.', '.', '.', '.', '.', '.', '.']]
 
-    assert nubecita(matriz) == [2, 4]
+    assert nuvem(mapa) == [2, 4]
