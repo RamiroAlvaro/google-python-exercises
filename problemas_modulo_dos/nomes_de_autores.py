@@ -33,19 +33,21 @@ def autores(numero_de_nomes, nome, ultima_parte, extra):
             nomes[i] = nome.capitalize()
     if numero_de_nomes == 1:
         nomes[0] = nomes[0].upper()
-        return nomes[0]
+        nombre_formateado = nomes[0]
     elif nomes[-1] in ultima_parte and numero_de_nomes > 2:
         nomes[-1] = nomes[-1].upper()
         nomes[-2] = nomes[-2].upper()
-        return nomes[-2] + ' ' + nomes[-1] + ', ' + ''.join(nomes[:-2])
+        nombre_formateado = nomes[-2] + ' ' + nomes[-1] + ', ' + ' '.join(nomes[:-2])
     else:
         nomes[-1] = nomes[-1].upper()
-        return nomes[-1] + ', ' + ' '.join(nomes[:-1])
-
+        nombre_formateado = nomes[-1] + ', ' + ' '.join(nomes[:-1])
+    return nombre_formateado
 
 assert autores(1, 'Guimaraes', ultima_parte, extra) == 'GUIMARAES'
 assert autores(3, 'Joao Silva Neto', ultima_parte, extra) == 'SILVA NETO, Joao'
 assert autores(2, 'Joao Neto', ultima_parte, extra) == 'NETO, Joao'
 assert autores(2, 'Joao Silva', ultima_parte, extra) == 'SILVA, Joao'
 assert autores(2, 'Paulo Coelho', ultima_parte, extra) == 'COELHO, Paulo'
-assert autores(2, 'Celso de Araujo', ultima_parte, extra) == 'ARAUJO, Celso de'
+assert autores(3, 'Celso de Araujo', ultima_parte, extra) == 'ARAUJO, Celso de'
+assert autores(4, 'Celso Paulo de Araujo', ultima_parte, extra) == 'ARAUJO, Celso Paulo de'
+assert autores(5, 'Celso Paulo de Araujo Junior', ultima_parte, extra) == 'ARAUJO JUNIOR, Celso Paulo de'
