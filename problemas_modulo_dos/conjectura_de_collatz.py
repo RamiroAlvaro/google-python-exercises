@@ -23,13 +23,12 @@ def collatz(numero, contador):
 
 maximo = 0
 numero = 0
-contador = [0]
 
 for i in range(1, 1000001):
+    contador = [0]
     collatz(i, contador)
     if maximo < contador[0]:
         maximo = contador[0]
         numero = i
-    contador[0] = 0
 
 print('El numero que produce la mayor sequencia es: {}, con una cantidad de {} elementos.'.format(numero, maximo))
